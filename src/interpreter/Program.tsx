@@ -8,9 +8,9 @@ import {
 import TextWrapper, {TEXT_TYPES} from '../components/common/text/Text';
 
 export class Program {
-  public program: string;
+  public name: string;
   private description: string;
-  private commands: ICommand[] = [];
+  public commands: ICommand[] = [];
 
   private help: ICommand;
   private info: ICommand;
@@ -18,13 +18,13 @@ export class Program {
   private defaultCommand: ICommand;
 
   constructor({
-    program,
+    name,
     description,
     version,
     defaultCommand,
     commands,
   }: IProgram) {
-    this.program = program;
+    this.name = name;
     this.description = description;
 
     this.help = {
@@ -34,21 +34,39 @@ export class Program {
       execute(InterpretedCommand) {
         const commandNames = commands.reduce(
           (commandNames: string[], program: IProgramCommand) => {
-            commandNames.push(program.name);
+            if (!program.hidden) {
+              commandNames.push(program.name);
+            }
             return commandNames;
           },
           [],
         );
 
+        const commandsHelp = commandNames.length ? (
+          <>
+            <p>Commands available: {commandNames.toString()}</p>
+            <p>
+              <TextWrapper type={TEXT_TYPES.BOLD}>
+                {name} {'<command>'} --help
+              </TextWrapper>{' '}
+              for more information about a specific command (not yet
+              implemented)
+            </p>
+          </>
+        ) : null;
+
         return (
           <>
             <p>
-              Usage <TextWrapper type={TEXT_TYPES.BOLD}>{program} {'<command>'}</TextWrapper>
+              Usage{' '}
+              <TextWrapper type={TEXT_TYPES.BOLD}>
+                {name} {'<command>'}
+              </TextWrapper><br/>
             </p>
-            <p>Commands available: {commandNames.toString()}</p>
             <p>
-              <TextWrapper type={TEXT_TYPES.BOLD}>{program} {'<command>'} --help</TextWrapper> for more information about the specific command (not yet implemented)
+              description: {description}
             </p>
+            {commandsHelp}
           </>
         );
       },

@@ -1,4 +1,5 @@
 import React, {useState, createContext, ReactNode} from 'react';
+import TextWrapper, {TEXT_TYPES} from '../components/common/text/Text';
 import {getTimestamp} from '../helpers/time';
 import {IUser} from './user';
 
@@ -16,7 +17,7 @@ interface IShell {
 
 interface ICommand {
   loading: boolean;
-  suggest: string;
+  suggestion: string;
   valid: boolean;
   value: string;
 }
@@ -42,13 +43,13 @@ const cat = `
 
 const initialMessage = (
   <pre>
-    {cat}
+    {cat}<br/>
     <p>
       Created to explore and learn,
       <br />
       while doing so creating a toolbelt for development
     </p>
-    v0.1 23.05.2020
+    <p>v0.1 23.05.2020</p>
   </pre>
 );
 
@@ -64,7 +65,7 @@ const defaultState = {
       ],
       command: {
         loading: false,
-        suggest: '',
+        suggestion: '',
         valid: true,
         value: '',
       },

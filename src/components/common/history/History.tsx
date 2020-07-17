@@ -26,7 +26,7 @@ const entry = ({user, value, response, created}: IHistory) => {
     <li key={created}>
       {user ? <Prompt user={user} /> : null}
       {value ? <div className="history__value">{value}</div> : null}
-      {response ? <p className="history__response">{response}</p> : null}
+      {response ? <div className="history__response">{response}</div> : null}
     </li>
   );
 };

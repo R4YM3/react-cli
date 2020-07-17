@@ -6,6 +6,7 @@ export interface ICommand {
   name: string;
   abbreviation?: string;
   description: string;
+    hidden?: boolean;
   execute(arg0: IInterpretedCommand): string | React.ReactNode;
 }
 
@@ -31,7 +32,7 @@ export interface IGetCommmandsWithAgruments {
 }
 
 export interface IProgram {
-  program: string;
+  name: string;
   description: string;
   version: string;
   defaultCommand?: IProgramCommand;

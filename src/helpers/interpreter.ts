@@ -33,6 +33,11 @@ function getCommandsWithAgruments(parameters: string[]) {
         const {agrument, agrumentValueIndex} = getAgrument(parameters, index);
         const command = commands[response.commands.length - 1];
 
+        // we probably want to add agrument on root level command
+        if (!command) {
+          return response;
+        }
+
         command.agruments.push(agrument);
 
         response.logged.push(agrumentValueIndex);

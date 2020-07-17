@@ -5,7 +5,7 @@ import {IInterpretedCommand} from '../../types';
 import TextWrapper from '../../components/common/text/Text';
 
 export default new Program({
-  program: 'whoami',
+  name: 'whoami',
   description: 'tells something about whoami',
   version: '1',
   defaultCommand: {
@@ -16,8 +16,8 @@ export default new Program({
       return (
         <TextWrapper>
           Spare time project of Raymond Schweers.<br/>
-          To explore, learn and seek new technologies and by doing so creating a handy command line<br/>
-          interface build with: TypeScript, React, and Sass.<br/>
+          To explore, learn and seek new technologies and by doing so creating a handy<br/>
+          command line interface build with: TypeScript, React, and Sass.<br/>
           version: {Package.version}
         </TextWrapper>
       );

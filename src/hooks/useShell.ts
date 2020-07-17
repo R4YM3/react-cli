@@ -2,7 +2,7 @@ import {useContext} from 'react';
 import {ShellContext} from '../context/shell';
 import {getTimestamp} from '../helpers/time';
 import {useUser} from './useUser';
-import interpret from '../interpreter';
+import interpret, {getSuggestion} from '../interpreter';
 
 export const useShell = (): any => {
   const {state, setState} = useContext(ShellContext)!;
@@ -15,7 +15,7 @@ export const useShell = (): any => {
     newState.instances.push({
       command: {
         loading: false,
-        suggest: '',
+        suggestion: '',
         valid: true,
         value: '',
       },
@@ -49,7 +49,19 @@ export const useShell = (): any => {
     const newState = {
       ...state,
     };
+
     newState.instances[shellIndex].command.value = value;
+    newState.instances[shellIndex].command.suggestion = getSuggestion(value);
+    setState(newState);
+  }
+
+  function setSuggestionAsValue(shellIndex: number) {
+    const newState = {
+      ...state,
+    };
+
+    const suggestion = state.instances[shellIndex].command.suggestion
+    newState.instances[shellIndex].command.value = suggestion;
     setState(newState);
   }
 
@@ -72,6 +84,7 @@ export const useShell = (): any => {
     });
 
     shell.command.value = '';
+    shell.command.suggestion = '';
 
     const newState = {
       ...state,
@@ -90,6 +103,7 @@ export const useShell = (): any => {
     addNewShell,
     removeShellByIndex,
     setCommandValue,
+    setSuggestionAsValue,
     setShellName,
     submitCommandValue,
   };

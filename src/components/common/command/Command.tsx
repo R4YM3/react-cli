@@ -9,9 +9,9 @@ export interface Props {
 }
 
 export default ({shellIndex, historyRef}: Props) => {
-  const {getShellByIndex, setCommandValue, submitCommandValue} = useShell()!;
+  const {getShellByIndex, setCommandValue,setSuggestionAsValue, submitCommandValue} = useShell()!;
   const shell = getShellByIndex(shellIndex);
-  const {suggest, value} = shell.command;
+  const {suggestion, value} = shell.command;
 
   function handleValueChange(event: any) {
     setCommandValue(shellIndex, event.target.value);
@@ -23,6 +23,16 @@ export default ({shellIndex, historyRef}: Props) => {
       event.stopPropagation();
       handleSubmit();
     }
+
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      event.stopPropagation();
+      handleSuggestion();
+    }
+  }
+
+  function handleSuggestion() {
+    setSuggestionAsValue(shellIndex);
   }
 
   function handleSubmit() {
@@ -30,7 +40,7 @@ export default ({shellIndex, historyRef}: Props) => {
   }
 
   function scrollToBottom() {
-      historyRef.current.scrollTop = historyRef.current.scrollHeight;
+    historyRef.current.scrollTop = historyRef.current.scrollHeight;
   }
 
   return (
@@ -49,7 +59,7 @@ export default ({shellIndex, historyRef}: Props) => {
           className="command__suggestion"
           type="text"
           readOnly
-          value={suggest}
+          value={suggestion}
         />
         <span className="command__hint">
           <span className="command__hint__keycap border-color">↵</span> to
