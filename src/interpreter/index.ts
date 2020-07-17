@@ -50,16 +50,18 @@ export function getSuggestion(rawCommandValue: IRawCommand): string {
     module.name.startsWith(interpretedCommand.program),
   );
 
-  if (program && program.commands) {
-    command = program.commands.find((cmd: ICommand) => {
-      if (cmd?.hidden) {
-        return rawCommandValue;
-      }
-      return cmd.name.startsWith(interpretedCommand.command?.name);
-    });
+  if (program) {
+    if (program.commands && interpretedCommand.program === program.name) {
+      command = program.commands.find((cmd: ICommand) => {
+        if (cmd.hidden) {
+          return rawCommandValue;
+        }
+        return cmd.name.startsWith(interpretedCommand.command?.name);
+      });
 
-    if (command) {
+      if (command) {
         return `${program.name} ${command.name} `;
+      }
     }
 
     return `${program.name} `;
