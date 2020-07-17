@@ -1,0 +1,43 @@
+.history {
+  flex: 1;
+  height: 100%;
+  font-size: 0.9em;
+  overflow: auto;
+  line-height: 1.5em;
+  padding-left: 1em;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  }
+
+  &__value,
+  &__response {
+    word-break: break-all;
+  }
+
+  &__value {
+    display: inline;
+    font-weight: bold;
+  }
+
+  &__response {
+    margin: 0.5em 0;
+
+    p:first-child {
+        margin-top: 0;
+    }
+  }
+}

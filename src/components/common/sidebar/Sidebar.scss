@@ -1,0 +1,34 @@
+@import '../../../styling/variables';
+
+.sidebar {
+  display: flex;
+  width: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.sidebar__logo {
+  margin: 0;
+  height: 3em;
+}
+
+.sidebar__top {
+  height: 100%;
+
+  .button--icon {
+    border-width: 0 0 1px;
+  }
+}
+
+.sidebar__center {
+  .button--icon {
+    border-width: 1px 0 0;
+  }
+}
+
+.sidebar__bottom {
+  .button--icon {
+    border-width: 1px 0 0;
+  }
+}

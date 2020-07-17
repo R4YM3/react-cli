@@ -1,0 +1,33 @@
+import {IDecodedCommand} from '../../helpers/interpreter';
+import awesome from './awesome';
+import who from './who';
+
+export interface IModule {
+  description: string;
+  execute(arg0: IDecodedCommand): string;
+  commands: IModuleCommands;
+  agruments:IModuleAgruments;
+  program: string;
+}
+
+export type IModuleCommands = IModuleCommand[] | [];
+
+export interface IModuleCommand {
+  id: string;
+  description: string;
+  execute(arg0: IDecodedCommand): string;
+  hidden?: boolean;
+}
+
+export type IModuleAgruments = IModuleAgrument[] | [];
+
+
+export interface IModuleAgrument {
+  id: string;
+  description: string;
+  execute(arg0: IDecodedCommand): string;
+  hidden?: boolean;
+}
+
+const modules = [awesome, who];
+export default modules;

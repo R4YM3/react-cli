@@ -1,0 +1,42 @@
+@import '../../../styling/variables';
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100vh;
+  width: calc(100% - 1px);
+  border-right: 1px solid $global-border-color;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+  }
+
+  &__title {
+    border-bottom: 1px solid $global-border-color;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font-weight: normal;
+    font-size: 1em;
+  }
+
+  .button__icon {
+      opacity: 1;
+  }
+
+  .button--icon {
+    opacity: 0.25;
+    transition: 150ms ease-in-out opacity;
+  }
+
+  &__header__left .button--icon {
+    border-width: 0 1px 0 0;
+  }
+
+  &__header__right .button--icon {
+    border-width: 0 0 1px;
+  }
+}

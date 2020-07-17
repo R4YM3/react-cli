@@ -1,0 +1,99 @@
+import {IDecodedCommand} from '../../helpers/interpreter';
+import {IModule, IModuleCommand} from './';
+import {notValidCommand} from '../';
+
+const app = {
+  description: 'app tells something about somebody',
+  execute,
+  commands: [
+    {
+      id: 'raymond',
+      description: 'tells something about Raymond Schweers',
+      hidden: false,
+      execute: getAbout,
+    },
+  ],
+  agruments: [
+    {
+      id: 'about',
+      description: 'returns btw numbere',
+      hidden: true,
+      execute: getAbout,
+    },
+    {
+      id: 'iban',
+      description: 'returns his IBAN',
+      hidden: true,
+      execute: getIBAN,
+    },
+    {
+      id: 'btw',
+      description: 'returns btw numbere',
+      hidden: true,
+      execute: getBTW,
+    },
+  ],
+  program: 'who',
+} as IModule;
+
+function execute(command: IDecodedCommand) {
+  if (command.commands.length) {
+    return runCommand(command);
+  }
+  return 'who?';
+}
+function runCommand(executed: IDecodedCommand): string {
+  const commandId = executed.commands[0];
+  const command = app.commands.find(
+    (command: IModuleCommand) => command.id === commandId,
+  );
+  if (!command) {
+    return notValidCommand(executed);
+  }
+  return command.execute(executed);
+}
+
+
+interface IUser {
+  id: string;
+  about: string;
+  iban: string;
+  btw: string;
+}
+
+interface IUsers {
+    [key: string]: IUser;
+}
+
+const users = {
+  raymond: {
+    id: 'raymond',
+    about: 'Raymond Schweers, Frontend developer for more then 12 years',
+    iban: '1234 4567 8910',
+    btw: '41349089',
+  },
+} as IUsers;
+
+function getUser(executed: IDecodedCommand): IUser {
+  const userId = executed.commands[0];
+  return users[userId];
+}
+
+function getAbout(executed: IDecodedCommand) {
+  const user = getUser(executed);
+  if (!user) {
+    return 'NOT FOUND';
+  }
+
+  return user.about;
+}
+
+function getIBAN(command: IDecodedCommand) {
+  return 'IBAN';
+}
+
+function getBTW(command: IDecodedCommand) {
+  return 'BTW';
+}
+
+export default app;

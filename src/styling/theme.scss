@@ -1,0 +1,82 @@
+@import './variables';
+
+@mixin theme($theme) {
+
+  &.theme--#{map-get($theme, 'name')} {
+    background: map-get($theme, 'color-bg');
+    color: map-get($theme, 'color-text');
+
+    input {
+      color: map-get($theme, 'color-link');
+    }
+
+    a {
+      color: map-get($theme, 'color-link');
+    }
+
+    .border-color {
+      border-color: map-get($theme, 'color-border');
+    }
+
+    .after-arrow-right-background-color:after {
+      border-top-color: map-get($theme, 'color-bg');
+      border-right-color: map-get($theme, 'color-bg');
+      border-bottom-color: map-get($theme, 'color-bg');
+    }
+
+    .text--warning {
+      color: map-get($theme, 'color-warning');
+    }
+
+    .text--error {
+      color: map-get($theme, 'color-error');
+    }
+
+    .text--notification {
+      color: map-get($theme, 'color-notification');
+    }
+
+    .text--text {
+      color: map-get($theme, 'color-text');
+    }
+  }
+}
+
+$theme-dark: (
+  'name': 'dark',
+  'color-bg': #000,
+  'color-text': #fff,
+  'color-link': #fff,
+  'color-error': #721c24,
+  'color-warning': #856404,
+  'color-notification': #004085,
+  'color-border': $global-border-color
+);
+
+$theme-light: (
+  'name': 'light',
+  'color-bg': #fff,
+  'color-text': #000,
+  'color-link': #000,
+  'color-error': #721c24,
+  'color-warning': #856404,
+  'color-notification': #004085,
+  'color-border': #ddd,
+);
+
+$theme-matrix: (
+  'name': 'matrix',
+  'color-bg': #000,
+  'color-text': #00ff41,
+  'color-link': #008f11,
+  'color-error': #721c24,
+  'color-warning': #856404,
+  'color-notification': #004085,
+  'color-border': $global-border-color
+);
+
+.app {
+  @include theme($theme-dark);
+  @include theme($theme-light);
+  @include theme($theme-matrix);
+}

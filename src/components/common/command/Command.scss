@@ -1,0 +1,80 @@
+@import '../../../styling/variables';
+
+%pointer {
+  position: absolute;
+  top: 0;
+  left: 1em;
+}
+
+.command {
+  position: relative;
+  border-color: $global-border-color;
+  border-width: 1px 0 0;
+  border-style: solid;
+
+  &__input,
+  &__suggestion {
+    padding: 0 0 2px 2.25em;
+    width: calc(100% - 2.25em);
+    background: transparent;
+    border: 0;
+    font-family: $global-font-family;
+  }
+
+  &__input:focus,
+  &__suggestion:focus {
+    outline: 0;
+  }
+
+  &__input {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__suggestion {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+  }
+
+  &__input + .command__indicator:before {
+    @extend %pointer;
+    position: absolute;
+    left: 0;
+    left: 1em;
+    content: '$';
+    color: grey;
+  }
+
+  &__input:hover + .command__indicator:before {
+    content: '$';
+    color: #aaa;
+  }
+
+  &__input:focus + .command__indicator:before {
+    content: '$';
+    color: red;
+  }
+
+  &__suggestion {
+    opacity: 0.5;
+  }
+
+  &__hint {
+    display: block;
+    position: absolute;
+    top: 0;
+    color: #aaa;
+    right: 1em;
+    font-size: 0.8em;
+  }
+
+  &__hint__keycap {
+    display: inline-block;
+    line-height: 0.75em;
+    border: 1px solid $global-border-color;
+    padding: 0.7em 0.65em;
+    border-radius: 0.25em;
+  }
+}

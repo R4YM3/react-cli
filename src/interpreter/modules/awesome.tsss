@@ -1,0 +1,11 @@
+import {IDecodedCommand} from '../../helpers/interpreter';
+
+export default {
+  description: 'Program that tells who is awesome',
+  execute: awesome,
+  program: 'awesome'
+};
+
+function awesome(command: IDecodedCommand) {
+  return 'You are awesome!';
+}

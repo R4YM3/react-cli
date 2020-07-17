@@ -1,0 +1,49 @@
+.prompt {
+  display: inline-block;
+  overflow: hidden;
+  font-size: 0.9em;
+  vertical-align: middle;
+  margin: 1em 0;
+}
+
+.prompt--value {
+  float: left;
+  overflow: hidden;
+  line-height: 1.8em;
+}
+
+.prompt--value:after {
+  float: right;
+  content: '';
+  display: inline-block;
+  line-height: 0;
+  border-width: 0.9em;
+  border-style: solid;
+  margin-left: 0.75em;
+}
+
+.prompt--country {
+  background-color: inherit;
+}
+
+.prompt--country:after {
+  border-color: #288ad6 #288ad6 #288ad6 transparent;
+}
+
+.prompt--platform {
+  background-color: #288ad6;
+  color: white;
+}
+
+.prompt--platform:after {
+  border-color: #13c98d #13c98d #13c98d #288ad6;
+}
+
+.prompt--browser {
+  background-color: #13c98d;
+  color: white;
+}
+
+.prompt--browser:after {
+  border-color: #000 #000 #000 #13c98d;
+}

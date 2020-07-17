@@ -1,0 +1,216 @@
+interface ICommand {
+  name: string;
+  abbreviation?: string;
+  description: string;
+  execute(arg0: IExecuted): string;
+}
+
+interface IProgramsProgram {
+  [key: string]: string;
+}
+/*
+class Programs {
+  private programs: IProgramsProgram;
+
+  constructor() {
+    this.programs = {};
+  }
+
+  public addProgram(Program: any) {
+    this.programs[Program.name] = Program;
+  }
+
+  public execute(executed: IExecuted) {
+    this.programs.map((program: any) =>
+      program.execute(executed),
+    );
+  }
+}
+*/
+
+class Program {
+  public program: string;
+  private description: string;
+  private commands: ICommand[] = [];
+
+  private help: ICommand;
+  private info: ICommand;
+  private version: ICommand;
+  private defaultCommand: ICommand;
+
+  constructor({
+    program,
+    description,
+    version,
+    defaultCommand,
+    commands,
+  }: IProgram) {
+    this.program = program;
+    this.description = description;
+
+    this.help = {
+      name: 'help',
+      abbreviation: 'h',
+      description: 'program help',
+      execute(IExecuted) {
+        const programs = commands.reduce(
+          (programs: string[], program: IProgramCommand) => {
+            programs.push(program.name);
+            return programs;
+          },
+          [],
+        );
+        return `Commands available: ${programs.toString()}`;
+      },
+    };
+
+    this.info = {
+      name: 'info',
+      abbreviation: 'i',
+      description: 'returns some information',
+      execute(IExecuted) {
+        return description;
+      },
+    };
+
+    this.version = {
+      name: 'version',
+      abbreviation: 'v',
+      description: 'current version',
+      execute(Executed:IExecuted) {
+        return version;
+      },
+    };
+
+    this.defaultCommand = defaultCommand ? defaultCommand : this.help;
+
+    this.commands = [this.help, this.info, this.version, ...commands];
+  }
+
+  private commandNotFound(executed: IExecuted): string {
+    return `command not found: ${executed.command.name}`;
+  }
+
+  public execute(executed: IExecuted): string {
+    if (!executed.command.name) {
+      return this.defaultCommand.execute(executed);
+    }
+
+    const command = this.commands.find(
+      (command: ICommand): boolean =>
+        command.name === executed.command.name ||
+        command.abbreviation === executed.command.name,
+    );
+
+    if (!command) {
+      return this.commandNotFound(executed);
+    }
+
+    return command.execute(executed);
+  }
+}
+
+interface IProgram {
+  program: string;
+  description: string;
+  version: string;
+  defaultCommand?: IProgramCommand;
+  commands: IProgramCommand[];
+}
+
+interface IProgramCommand {
+  name: string;
+  description: string;
+  abbreviation?: string;
+  hidden?: boolean;
+  execute(arg0: IExecuted): string;
+}
+
+const author = new Program({
+  program: 'author',
+  description: 'tells something about an author',
+  version: '1',
+  commands: [
+    {
+      name: 'btw',
+      description: 'return btw number',
+      execute(executed: IExecuted) {
+        return '12345667';
+      },
+    },
+    {
+      name: 'iban',
+      description: 'return IBAN number',
+      execute(executed: IExecuted) {
+        return '1234 5678 1234';
+      },
+    },
+  ],
+});
+
+
+const whoami = new Program({
+  program: 'whoami',
+  description: 'tells something application',
+  version: '1',
+  defaultCommand: {
+    name: 'info',
+    abbreviation: 'i',
+    description: 'returns some information',
+    execute(executed: IExecuted) {
+      console.log(executed);
+      return 'DUS DEFAULT RUNNED';
+    },
+  },
+  commands: [
+    {
+      name: 'test',
+      abbreviation: 't',
+      description: 'tells something about this application',
+      execute(executed: IExecuted) {
+        console.log('TEST EXE RUNNED', executed);
+        return 'TEST runned';
+      },
+    },
+  ],
+});
+
+interface IExecuted {
+  program: string;
+  command: IExecutedCommand;
+  commands?: IExecutedCommand[];
+}
+
+interface IExecutedCommand {
+  name: string;
+  argruments?: IExecutedCommandArgrument;
+}
+
+interface IExecutedCommandArgrument {
+  [key: string]: string;
+}
+
+const command = {
+  command: {
+    name: '',
+    agruments: {
+      argrument: 'value',
+    },
+  },
+  options: [
+    {
+      name: 'test',
+      agruments: {
+        argrument: 'value',
+      },
+    },
+  ],
+  origin: '',
+  program: 'author',
+  value: '',
+};
+
+console.log(author.execute(command));
+console.log(whoami.execute(command));
+
+export {};

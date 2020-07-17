@@ -1,0 +1,37 @@
+.checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  &__label {
+    padding-left: 2.25em;
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 0;
+    left: 1em;
+  }
+
+  .checkbox__input ~ .checkbox__checkmark:before {
+      display: block;
+      padding-top: .05em;
+    content: '◻';
+  }
+
+  .checkbox__input:checked ~ .checkbox__checkmark:before {
+    content: '◼';
+  }
+}
